@@ -1,17 +1,63 @@
+import 'package:estructura_practica_1/models/product_desserts.dart';
 import 'package:estructura_practica_1/models/product_hot_drinks.dart';
 import 'package:estructura_practica_1/models/product_grains.dart';
 
 enum ProductType { BEBIDAS, GRANO, POSTRES }
 
 class ProductRepository {
+  ProductRepository(ProductType bebidas);
+
   static List<dynamic> loadProducts(ProductType prodType) {
     // ----------------------              ----------------------------//
-    // ----------------------       Tazas      ----------------------------//
+    // ----------------------       Postres      ----------------------------//
     // ----------------------              ----------------------------//
 
-    //if (prodType == ProductType.POSTRES) {
-    // TODO: Agregar al menos 5 productos "postres"
-    //}
+    if (prodType == ProductType.POSTRES)
+      return <ProductDesserts>[
+        ProductDesserts(
+          productTitle: "Pay de Manzana",
+          productDescription: "Con manzanas agrias y crujientes, corteza perfectamente crujiente.",
+          productImage:
+              "https://www.vippng.com/png/detail/351-3512005_apple-pie-png-apple-pie-png-hd.png",
+          productSize: ProductSizeType.REBANADA,
+          productAmount: 0,
+        ),
+        ProductDesserts(
+          productTitle: "Pastel de Zanahoria",
+          productDescription: "Lleno de zanahorias cortadas y nueces tostadas, y cubierto con glaseado de queso crema.",
+          productImage:
+              "https://www.pngkit.com/png/detail/84-845684_banting-carrot-cake-slice-carrot-cake.png",
+          productSize: ProductSizeType.REBANADA,
+          productAmount: 0,
+        ),
+        ProductDesserts(
+          productTitle: "Pay de Queso",
+          productDescription:
+              "Un equilibrio perfecto entre la acidez del queso crema y la dulzura.",
+          productImage:
+              "https://toppng.com/uploads/preview/clip-cheesecake-drawing-cheese-cake-cheesecake-11563060811suenmod5vf.png",
+          productSize: ProductSizeType.REBANADA,
+          productAmount: 0,
+        ),
+        ProductDesserts(
+          productTitle: "Tres Leches",
+          productDescription:
+              "Sabor a pastel empapado en leche condensada dulce, leche evaporada y crema espesa..",
+          productImage:
+              "https://c0.klipartz.com/pngpicture/908/877/gratis-png-pastel-de-tortas-tres-pastel-de-frutas-pastel-de-fresas-milhojas-pastel.png",
+          productSize: ProductSizeType.REBANADA,
+          productAmount: 0,
+        ),
+        ProductDesserts(
+          productTitle: "Pastel de Oreo",
+          productDescription:
+              "Relleno con sabor exacto a glaseado de vainilla.",
+          productImage:
+              "https://banner2.cleanpng.com/20180617/vts/kisspng-chocolate-cake-torte-chocolate-brownie-cheesecake-5b2606718aaed1.5491737815292186735681.jpg",
+          productSize: ProductSizeType.REBANADA,
+          productAmount: 0,
+        ),
+      ];
 
     // ----------------------              ----------------------------//
     // ----------------------       Granos      ----------------------------//

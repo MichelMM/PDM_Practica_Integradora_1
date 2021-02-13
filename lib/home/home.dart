@@ -1,3 +1,4 @@
+import 'package:estructura_practica_1/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:estructura_practica_1/home/item_home.dart';
 import 'package:estructura_practica_1/profile.dart';
@@ -11,75 +12,111 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(widget.title),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            SizedBox(
+              width: 125,
+            ),
+            Text(
+              widget.title,
+              style: TextStyle(fontWeight: FontWeight.w100),
+            )
+          ],
+        ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              Navigator.of(context).push(
-                // TODO: Eliminar este boton y adaptar todo el contenido de la pagina de perfil en un Drawer aqui en la pantalla Home
-                MaterialPageRoute(builder: (_) => Profile()),
+          Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.person),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
           ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/cart');
+            },
           )
         ],
+      ),
+      drawer: Drawer(
+        child: Profile(),
+        elevation: 2000,
       ),
       body: ListView(
         children: <Widget>[
           GestureDetector(
             onTap: _openHotDrinksPage,
-            child: ItemHome(
-              title: "Bebidas calientes",
-              image: "https://i.imgur.com/XJ0y9qs.png",
+            child: Container(
+              child: ItemHome(
+                title: "Bebidas calientes",
+                image: "https://i.imgur.com/XJ0y9qs.png",
+              ),
             ),
           ),
-          ItemHome(
-            title: "Postres",
-            image: "https://i.imgur.com/fI7Tezv.png",
+          GestureDetector(
+            onTap: _openDessertPage,
+            child: Container(
+              child: ItemHome(
+                title: "Postres",
+                image: "https://i.imgur.com/fI7Tezv.png",
+              ),
+            ),
           ),
-          ItemHome(
-            title: "Granos",
-            image: "https://i.imgur.com/5MZocC1.png",
+          GestureDetector(
+            onTap: _openGrainsPage,
+            child: Container(
+              child: ItemHome(
+                title: "Granos",
+                image: "https://i.imgur.com/5MZocC1.png",
+              ),
+            ),
           ),
-          ItemHome(
-            // TODO: Al hacer clic, que muestre un snackbar de "Proximamente"
-            title: "Tazas",
-            image: "https://i.imgur.com/fMjtSpy.png",
+          GestureDetector(
+            onTap: () {
+              _scaffoldKey.currentState
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  backgroundColor: BUNKER_COLOR,
+                  content: Text(
+                    "Proximamente",
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ));
+            },
+            child: Container(
+              child: ItemHome(
+                title: "Tazas",
+                image: "https://i.imgur.com/fMjtSpy.png",
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  void _openHotDrinksPage() {
-    // TODO: completar en navigator pasando los parametros a la pagina de HotDrinksPage
-
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return null;
-        },
-      ),
-    );
+  void _openHotDrinksPage() async {
+    Navigator.of(context).pushNamed('/hotdrinks');
   }
 
-  void _openGrainsPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => null),
-    );
+  void _openGrainsPage() async {
+    Navigator.of(context).pushNamed('/grains');
   }
 
   void _openDessertPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => null),
-    );
+    Navigator.of(context).pushNamed('/desserts');
   }
 }

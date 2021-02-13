@@ -1,29 +1,25 @@
-import 'package:estructura_practica_1/models/product_hot_drinks.dart';
+import 'package:estructura_practica_1/models/product_desserts.dart';
 import 'package:estructura_practica_1/models/product_item_cart.dart';
 import 'package:estructura_practica_1/models/product_repository.dart';
 import 'package:estructura_practica_1/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(ItemHotDrinksDetails());
+void main() => runApp(ItemDessertDetails());
 
-class ItemHotDrinksDetails extends StatefulWidget {
+class ItemDessertDetails extends StatefulWidget {
   @override
-  _ItemHotDrinksDetailsState createState() => _ItemHotDrinksDetailsState();
+  _ItemDessertDetailsState createState() => _ItemDessertDetailsState();
 }
 
-class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
+class _ItemDessertDetailsState extends State<ItemDessertDetails> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   var _pressed;
 
   @override
   Widget build(BuildContext context) {
-    final ProductHotDrinks item = ModalRoute.of(context).settings.arguments;
-    _pressed = (item.productSize == ProductSize.CH)
-        ? 0
-        : (item.productSize == ProductSize.M)
-            ? 1
-            : 2;
+    final ProductDesserts item = ModalRoute.of(context).settings.arguments;
+    _pressed = (item.productSize == ProductSizeType.REBANADA) ? 0 : 1;
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
@@ -128,13 +124,13 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: MaterialButton(
                           child: Text(
-                            "Chico",
+                            "Rebanada",
                             style: TextStyle(
                                 color: (_pressed == 0)
                                     ? Colors.deepPurple
@@ -161,7 +157,7 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                         padding: const EdgeInsets.all(4.0),
                         child: MaterialButton(
                           child: Text(
-                            "Mediano",
+                            "Completo",
                             style: TextStyle(
                                 color: (_pressed == 1)
                                     ? Colors.deepPurple
@@ -179,33 +175,6 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                             borderRadius: BorderRadius.circular(70.0),
                             side: BorderSide(
                                 color: (_pressed == 1)
-                                    ? Colors.deepPurple
-                                    : Colors.black),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: MaterialButton(
-                          child: Text(
-                            "Grande",
-                            style: TextStyle(
-                                color: (_pressed == 2)
-                                    ? Colors.deepPurple
-                                    : Colors.black),
-                          ),
-                          onPressed: () {
-                            _pressed = 2;
-                            item.productSizeChanger(_pressed);
-                            setState(() {});
-                          },
-                          color: (_pressed == 2)
-                              ? Colors.deepPurple[50]
-                              : Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(70.0),
-                            side: BorderSide(
-                                color: (_pressed == 2)
                                     ? Colors.deepPurple
                                     : Colors.black),
                           ),
@@ -274,7 +243,7 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
     );
   }
 
-  _toCart(ProductHotDrinks item) {
+  _toCart(ProductDesserts item) {
     bool alredyIn = false;
     for (ProductItemCart x in cartList) {
       if (x.productTitle == item.productTitle) {
@@ -288,9 +257,8 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
         productImage: item.productImage,
         productPrice: item.productPrice,
         productTitle: item.productTitle,
-        typeOfProduct: ProductType.BEBIDAS,
+        typeOfProduct: ProductType.POSTRES,
       ));
-      
       _scaffoldKey.currentState
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(

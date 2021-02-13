@@ -1,19 +1,19 @@
+import 'package:estructura_practica_1/models/product_grains.dart';
 import 'package:estructura_practica_1/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:estructura_practica_1/models/product_hot_drinks.dart';
 
-class ItemHotDrinks extends StatefulWidget {
-  final ProductHotDrinks drink;
-  ItemHotDrinks({
+class ItemGrains extends StatefulWidget {
+  final ProductGrains grain;
+  ItemGrains({
     Key key,
-    @required this.drink,
+    @required this.grain,
   }) : super(key: key);
 
   @override
-  _ItemHotDrinksState createState() => _ItemHotDrinksState();
+  _ItemGrainsState createState() => _ItemGrainsState();
 }
 
-class _ItemHotDrinksState extends State<ItemHotDrinks> {
+class _ItemGrainsState extends State<ItemGrains> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,8 +41,8 @@ class _ItemHotDrinksState extends State<ItemHotDrinks> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/hotdrinksdetails',
-                        arguments: widget.drink);
+                    Navigator.of(context).pushNamed('/grainsdetails',
+                        arguments: widget.grain);
                   },
                   child: Container(
                     alignment: Alignment.topLeft,
@@ -54,12 +54,12 @@ class _ItemHotDrinksState extends State<ItemHotDrinks> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Bebidas Calientes",
+                            "Granos",
                             style: TextStyle(fontSize: 20),
                             textAlign: TextAlign.start,
                           ),
                           Text(
-                            "${widget.drink.productTitle}",
+                            "${widget.grain.productTitle}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w100,
@@ -71,7 +71,7 @@ class _ItemHotDrinksState extends State<ItemHotDrinks> {
                             height: 5,
                           ),
                           Text(
-                            "\$${widget.drink.productPrice}",
+                            "\$${widget.grain.productPrice}",
                             textAlign: TextAlign.start,
                             style: TextStyle(fontSize: 35),
                           ),
@@ -93,7 +93,7 @@ class _ItemHotDrinksState extends State<ItemHotDrinks> {
                   bottomRight: Radius.circular(5.0),
                 ),
                 child: Image.network(
-                  "${widget.drink.productImage}",
+                  "${widget.grain.productImage}",
                   fit: BoxFit.contain,
                   height: 140,
                   width: 140,
@@ -108,11 +108,11 @@ class _ItemHotDrinksState extends State<ItemHotDrinks> {
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.drink.liked = !widget.drink.liked;
+                    widget.grain.liked = !widget.grain.liked;
                   });
                 },
                 icon: Icon(
-                  widget.drink.liked ? Icons.favorite : Icons.favorite_border,
+                  widget.grain.liked ? Icons.favorite : Icons.favorite_border,
                   size: 29,
                   color: PRIMARY_COLOR,
                 ),

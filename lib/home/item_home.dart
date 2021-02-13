@@ -15,26 +15,22 @@ class ItemHome extends StatelessWidget {
       height: 220,
       child: Stack(
         children: [
-          Positioned.fill(
-            top: 16,
-            child: Card(
-              elevation: 4.0,
-              margin: EdgeInsets.all(24.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              color: Colors.indigo,
-              child: Container(height: 180),
-            ),
-          ),
           Container(
             height: 160,
             margin: EdgeInsets.only(top: 28, bottom: 24, left: 24, right: 24),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Color(0xffBCB0A1),
               borderRadius: BorderRadius.all(
-                Radius.circular(30),
+                Radius.zero,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.9),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: Offset(2, 3), // changes position of shadow
+                ),
+              ],
             ),
             child: Row(
               children: [
@@ -42,7 +38,6 @@ class ItemHome extends StatelessWidget {
                   margin: EdgeInsets.only(left: 16),
                   width: 160,
                   decoration: BoxDecoration(
-                    color: Colors.yellow[300],
                     borderRadius: BorderRadius.all(
                       Radius.circular(30),
                     ),
@@ -54,7 +49,7 @@ class ItemHome extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .headline5
-                          .copyWith(fontWeight: FontWeight.bold),
+                          .copyWith(fontWeight: FontWeight.normal,fontFamily: 'AkzidenzGrotesk'),
                       textAlign: TextAlign.center,
                     ),
                   ),

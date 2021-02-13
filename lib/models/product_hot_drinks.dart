@@ -10,7 +10,7 @@ class ProductHotDrinks {
   ProductSize productSize; // tamano del producto
   double productPrice; // precio del producto autocalculado
   final int productAmount; // cantidad de producto por comprar
-  final bool liked;
+  bool liked;
 
   ProductHotDrinks({
     @required this.productTitle,
@@ -27,7 +27,7 @@ class ProductHotDrinks {
   // Mandar llamar este metodo cuando se cambie el tamanio del producto
   // De esta manera el precio del nuevo tamanio del producto se autocalcula
   // Por ejemplo cuando se cambie a M
-  //
+
   // FlatButton(
   //   child: Text("M"),
   //   onPressed: () {
@@ -37,8 +37,27 @@ class ProductHotDrinks {
   //     });
   //   },
   // ),
-  //
-  //
+
+  void productSizeChanger(int type) {
+    switch (type) {
+      case 0:
+        productSize = ProductSize.CH;
+        productPrice = productPriceCalculator();
+        break;
+      case 1:
+        productSize = ProductSize.M;
+        productPrice = productPriceCalculator();
+        break;
+      case 2:
+        productSize = ProductSize.G;
+        productPrice = productPriceCalculator();
+        break;
+      default:
+        productSize = ProductSize.M;
+        productPrice = productPriceCalculator();
+    }
+  }
+
   double productPriceCalculator() {
     if (this.productSize == ProductSize.CH)
       return (20 + Random().nextInt(40)).toDouble();

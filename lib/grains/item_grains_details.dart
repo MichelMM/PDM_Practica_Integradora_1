@@ -1,29 +1,25 @@
-import 'package:estructura_practica_1/models/product_hot_drinks.dart';
+import 'package:estructura_practica_1/models/product_grains.dart';
 import 'package:estructura_practica_1/models/product_item_cart.dart';
 import 'package:estructura_practica_1/models/product_repository.dart';
 import 'package:estructura_practica_1/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(ItemHotDrinksDetails());
+void main() => runApp(ItemGrainsDetails());
 
-class ItemHotDrinksDetails extends StatefulWidget {
+class ItemGrainsDetails extends StatefulWidget {
   @override
-  _ItemHotDrinksDetailsState createState() => _ItemHotDrinksDetailsState();
+  _ItemGrainsDetailsState createState() => _ItemGrainsDetailsState();
 }
 
-class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
+class _ItemGrainsDetailsState extends State<ItemGrainsDetails> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   var _pressed;
 
   @override
   Widget build(BuildContext context) {
-    final ProductHotDrinks item = ModalRoute.of(context).settings.arguments;
-    _pressed = (item.productSize == ProductSize.CH)
-        ? 0
-        : (item.productSize == ProductSize.M)
-            ? 1
-            : 2;
+    final ProductGrains item = ModalRoute.of(context).settings.arguments;
+    _pressed = (item.productWeight == ProductWeight.CUARTO) ? 0 : 1;
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
@@ -128,13 +124,13 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: MaterialButton(
                           child: Text(
-                            "Chico",
+                            "250 G",
                             style: TextStyle(
                                 color: (_pressed == 0)
                                     ? Colors.deepPurple
@@ -161,7 +157,7 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                         padding: const EdgeInsets.all(4.0),
                         child: MaterialButton(
                           child: Text(
-                            "Mediano",
+                            "1K",
                             style: TextStyle(
                                 color: (_pressed == 1)
                                     ? Colors.deepPurple
@@ -179,33 +175,6 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                             borderRadius: BorderRadius.circular(70.0),
                             side: BorderSide(
                                 color: (_pressed == 1)
-                                    ? Colors.deepPurple
-                                    : Colors.black),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: MaterialButton(
-                          child: Text(
-                            "Grande",
-                            style: TextStyle(
-                                color: (_pressed == 2)
-                                    ? Colors.deepPurple
-                                    : Colors.black),
-                          ),
-                          onPressed: () {
-                            _pressed = 2;
-                            item.productSizeChanger(_pressed);
-                            setState(() {});
-                          },
-                          color: (_pressed == 2)
-                              ? Colors.deepPurple[50]
-                              : Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(70.0),
-                            side: BorderSide(
-                                color: (_pressed == 2)
                                     ? Colors.deepPurple
                                     : Colors.black),
                           ),
@@ -232,6 +201,7 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
                                 fontWeight: FontWeight.w300),
                           ),
                           onPressed: () {
+                            //var currentGrains = ProductCart.grains.add(item);
                             _toCart(item);
                           },
                           height: 40,
@@ -274,7 +244,7 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
     );
   }
 
-  _toCart(ProductHotDrinks item) {
+  _toCart(ProductGrains item) {
     bool alredyIn = false;
     for (ProductItemCart x in cartList) {
       if (x.productTitle == item.productTitle) {
@@ -288,19 +258,18 @@ class _ItemHotDrinksDetailsState extends State<ItemHotDrinksDetails> {
         productImage: item.productImage,
         productPrice: item.productPrice,
         productTitle: item.productTitle,
-        typeOfProduct: ProductType.BEBIDAS,
+        typeOfProduct: ProductType.GRANO,
       ));
-      
-      _scaffoldKey.currentState
-        ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(
-          backgroundColor: BUNKER_COLOR,
-          content: Text(
-            "Agregado Exitosamente al Carrito de Compras",
-            style: TextStyle(color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
-        ));
     }
+    _scaffoldKey.currentState
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        backgroundColor: BUNKER_COLOR,
+        content: Text(
+          "Agregado Exitosamente al Carrito de Compras",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ));
   }
 }

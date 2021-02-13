@@ -2,26 +2,26 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
-enum ProductWeight { CUARTO, KILO }
+enum ProductSizeType { REBANADA, COMPLETO }
 
-class ProductGrains {
+class ProductDesserts {
   final String productTitle; // nombre del producto
   final String productDescription; // descripcion del producto
   final String productImage; // url de imagen del producto
-  ProductWeight productWeight; // tamano del producto
+  ProductSizeType productSize; // tamano del producto
   double productPrice; // precio del producto autocalculado
   final int productAmount; // cantidad de producto por comprar
   bool liked;
 
-  ProductGrains({
+  ProductDesserts({
     @required this.productTitle,
     @required this.productDescription,
     @required this.productImage,
-    @required this.productWeight,
+    @required this.productSize,
     @required this.productAmount,
     this.liked = false,
   }) {
-    // inicializa el precio de acuerdo al weight del producto
+    // inicializa el precio de acuerdo al size del producto
     productPrice = productPriceCalculator();
   }
 
@@ -29,11 +29,11 @@ class ProductGrains {
     void productSizeChanger(int type) {
     switch (type) {
       case 0:
-        productWeight = ProductWeight.CUARTO;
+        productSize = ProductSizeType.REBANADA;
         productPrice = productPriceCalculator();
         break;
       case 1:
-        productWeight = ProductWeight.KILO;
+        productSize = ProductSizeType.COMPLETO;
         productPrice = productPriceCalculator();
         break;
       default:
@@ -43,10 +43,10 @@ class ProductGrains {
 
 
   double productPriceCalculator() {
-    if (this.productWeight == ProductWeight.CUARTO)
+    if (this.productSize == ProductSizeType.REBANADA)
       return (20 + Random().nextInt(40)).toDouble();
-    if (this.productWeight == ProductWeight.KILO)
-      return (40 + Random().nextInt(60)).toDouble();
+    if (this.productSize == ProductSizeType.COMPLETO)
+      return (60 + Random().nextInt(80)).toDouble();
     return 9999.0;
   }
 }
